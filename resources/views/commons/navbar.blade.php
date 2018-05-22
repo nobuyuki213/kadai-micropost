@@ -8,11 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Microposts</a>
+                <a class="navbar-brand" href="/">Microposts</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li>{!! Html::decode(link_to_route('signup.get', '<span class="glyphicon glyphicon-user"></span> Sign up')) !!}</li>
+                    <!--Login フォームのページが出来たら以下と入れ替え表示-->
+                    <!--<li>{!! Html::decode(link_to('/', '<span class="glyphicon glyphicon-log-in"></span> Login')) !!}</li>-->
                     <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
             </div>

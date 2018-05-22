@@ -13,14 +13,14 @@
         <!-- Bootstrap JavaScript-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
-        <style>
-            body {
-                background: url(http://www.tokkoro.com/picsup/2939281-text-writing-minimalism-typography-digital-art___abstract-wallpapers.jpg);
-                background-position: top center;
-                background-size: cover;
-                height: 900px;
-            }
-        </style>
+        <!--<style>-->
+        <!--    body {-->
+        <!--        background: url(http://www.tokkoro.com/picsup/2939281-text-writing-minimalism-typography-digital-art___abstract-wallpapers.jpg);-->
+        <!--        background-position: top center;-->
+        <!--        background-size: cover;-->
+        <!--        height: 900px;-->
+        <!--    }-->
+        <!--</style>-->
         
     </head>
     <body>
