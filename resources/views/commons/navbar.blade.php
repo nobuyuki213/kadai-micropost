@@ -12,10 +12,20 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>{!! Html::decode(link_to_route('signup.get', '<span class="glyphicon glyphicon-user"></span> Sign up')) !!}</li>
-                    <!--Login フォームのページが出来たら以下と入れ替え表示-->
-                    <!--<li>{!! Html::decode(link_to('/', '<span class="glyphicon glyphicon-log-in"></span> Login')) !!}</li>-->
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    @if(Auth::check())
+                        <li><a href="#">Users</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">My profile</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
+                            </ul>
+                        </li>
+                    @else
+                        <li>{!! Html::decode(link_to_route('signup.get', '<span class="glyphicon glyphicon-user"></span> Sign up')) !!}</li>
+                        <li>{!! Html::decode(link_to_route('login', '<span class="glyphicon glyphicon-log-in"></span> Login')) !!}</li>
+                    @endif
                 </ul>
             </div>
         </div>
