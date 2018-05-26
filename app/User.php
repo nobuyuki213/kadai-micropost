@@ -26,4 +26,62 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    //userに属するポストを取得
+    public function microposts()
+    {
+        return $this->hasMany(Micropost::class);
+    }
+    
+    
+    // UserがフォローするUser達を取得
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
+    }
+    
+    // UserをフォローしているUser達を取得
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'user_id')->withTimestamps();
+    }
+    
+    public function follow($userId)
+    {
+        // 既にフォローしているかの確認
+        $exist = $this->is_following($userId);
+        // 自分自身では無いかの確認
+        $its_me = $this->id == $userId;
+        
+        if ($exist || $its_me){
+            // 既にフォローしていれば何もしない
+            return false;
+        }else {
+            // フォローしていなければフォローを実行
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+    
+    public function unfollow($userId)
+    {
+        // 既にフォローしているかの確認
+        $exist = $this->is_following($userId);
+        // 自分自身では無いかの確認
+        $its_me = $this->id == $userId;
+        
+        if ($exist || $its_me){
+            // フォローしていればフォロー解除を実行
+            $this->followings()->detach($userId);
+            return true;
+        }else {
+            // 未フォローなら何もしない
+            return false;
+        }
+    }
+    
+    public function is_following($userId){
+        //UserがフォローするUser達の中にfollow_idが存在するかを確認
+        return $this->followings()->where('follow_id', $userId)->exists();
+    }
 }

@@ -6,6 +6,16 @@
     @if(Auth::check())
         <?php $user = Auth::user() ?>
         {{ $user->name }}
+        <div class="">
+            <aside class="col-xs-4">
+                
+            </aside>
+            <div class=" col-xs-8">
+                @if(count($microposts) > 0)
+                    @include('microposts.microposts', ['microposts' => $microposts])
+                @endif
+            </div>
+        </div>
     @else
         <div class="jumbotron" style="background: rgba(240, 240, 240, 0.9);">
             <div class="text-center">
