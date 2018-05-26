@@ -27,14 +27,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     
-    //userに属するポストを取得
+    //userに属する複数のポストを取得
     public function microposts()
     {
         return $this->hasMany(Micropost::class);
     }
     
     
-    // UserがフォローするUser達を取得
+    // UserがフォローしているUser達を取得
     public function followings()
     {
         return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
@@ -83,5 +83,15 @@ class User extends Authenticatable
     public function is_following($userId){
         //UserがフォローするUser達の中にfollow_idが存在するかを確認
         return $this->followings()->where('follow_id', $userId)->exists();
+    }
+    
+    //UserがフォローしたUser達のidと、自分のidを取得する
+    public function feed_microposts()
+    {
+        $follow_user_ids = $this->followings()->pluck('users.id')->toArray();
+        
+        $follow_user_ids[] = $this->id;
+        
+        return Micropost::whereIn('user_id', $follow_user_ids);
     }
 }
