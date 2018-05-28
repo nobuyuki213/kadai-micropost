@@ -129,4 +129,25 @@ class UsersController extends Controller
         
         return view('users.followers', $data);
     }
+    
+    /*
+    *Userお気に入り機能追加をここから記述開始
+    */
+
+    // userがお気に入りしたポスト一覧リストの取得
+    public function favorites($id)
+    {
+        $user = User::find($id);
+        
+        $favorites = $user->user_favorites()->paginate(10);
+        
+        $data = [
+            'user' => $user,
+            'microposts' => $favorites,
+            ];
+        
+        $data += $this->counts($user);
+        
+        return view('users.favorites', $data);
+    }
 }
